@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .weather-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .error-message {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Прогноз погоды</h1>
+    <form method="post">
+        <label for="city">Введите название города:</label>
+        <input type="text" id="city" name="city" required>
+        <button type="submit">Получить прогноз</button>
+    </form>
+
+    {% if weather_info %}
+        <div class="weather-info">
+            <h2>Погода в {{ weather_info.city }}</h2>
+            <p>Температура: {{ weather_info.temperature }} °C</p>
+            <p>Скорость ветра: {{ weather_info.wind_speed }} м/с</p>
+            <p>Вероятность осадков: {{ weather_info.precipitation_probability }}%</p>
+            <p>Условие: {{ weather_condition }}</p>
+        </div>
+    {% elif error_message %}
+        <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>
