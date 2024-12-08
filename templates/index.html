@@ -31,7 +31,7 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            width: 200px;
+            width: 140px;
             margin-right: 10px;
         }
         button {
@@ -51,6 +51,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+            margin-bottom: 20px;
         }
         .error-message {
             color: red;
@@ -61,19 +62,24 @@
 <body>
     <h1>Прогноз погоды</h1>
     <form method="post">
-        <label for="city">Введите название города:</label>
-        <input type="text" id="city" name="city" required>
+        <label for="city1">Введите первый город:</label>
+        <input type="text" id="city1" name="city1" required>
+        <label for="city2">Введите второй город:</label>
+        <input type="text" id="city2" name="city2" required>
         <button type="submit">Получить прогноз</button>
     </form>
 
     {% if weather_info %}
-        <div class="weather-info">
-            <h2>Погода в {{ weather_info.city }}</h2>
-            <p>Температура: {{ weather_info.temperature }} °C</p>
-            <p>Скорость ветра: {{ weather_info.wind_speed }} м/с</p>
-            <p>Вероятность осадков: {{ weather_info.precipitation_probability }}%</p>
-            <p>Условие: {{ weather_condition }}</p>
-        </div>
+        <h2>Результаты:</h2>
+        {% for weather in weather_info %}
+            <div class="weather-info">
+                <h2>Погода в {{ weather.city }}</h2>
+                <p>Температура: {{ weather.temperature }} °C</p>
+                <p>Скорость ветра: {{ weather.wind_speed }} м/с</p>
+                <p>Вероятность осадков: {{ weather.precipitation_probability }}%</p>
+                <p>Состояние: {{ weather.condition }}</p>
+            </div>
+        {% endfor %}
     {% elif error_message %}
         <p class="error-message">{{ error_message }}</p>
     {% endif %}
